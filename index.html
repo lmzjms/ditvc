@@ -43,26 +43,27 @@
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">Rhythm Controllable Zero-Shot Voice Conversion via Diffusion Transformer and Mask Generative Duration Mode</h1>
           <div class="is-size-5 publication-authors">
-            <span class="author-block">Qian Yang<sup>1,*</sup>,</span>
+            <!-- <span class="author-block">Qian Yang<sup>1,*</sup>,</span>
             <span class="author-block">Jialong Zuo<sup>1,*</sup>,</span>
             <span class="author-block">Zhe Su<sup>3,*</sup>,</span>
             <span class="author-block">Ziyue Jiang<sup>1</sup>,</span>
             <span class="author-block">Mingze Li<sup>1</sup>,</span>
-            <span class="author-block">Zhou Zhao<sup>1</sup>,</span>
-            <br />
+            <span class="author-block">Zhou Zhao<sup>1</sup>,</span> -->
+            <span class="author-block">Anonymous authors</span>
+            <!-- <br />
             <span class="author-block">Feiyang Chen<sup>2</sup>,</span>
             <span class="author-block">Zhefeng Wang<sup>2</sup>,</span>
             <span class="author-block">Baoxing Huai<sup>2</sup>,</span>
-          </div>
+          </div> -->
 
-          <div class="is-size-5 publication-authors">
+          <!-- <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>Zhejiang University,</span>
             <span class="author-block"><sup>2</sup>Huawei Cloud,</span>
             <span class="author-block"><sup>3</sup>Carnegie Mellon University</span>
           </div>
           <div class="is-size-8 publication-authors">
             <span class="author-block"><sup>*</sup>Equal Contribution</span>
-          </div>
+          </div> -->
 
 
           <!-- <div class="column has-text-centered">
@@ -117,7 +118,7 @@
                     class="interpolation-image"
                     alt="Interpolate start reference image."/>
           <h2 class="has-text-centered is-8">
-            The overall architecture of SceneAdapter. Duration, pitch, and energy are extracted from the prompt (In training: unmasked part; In inference: reference speech). It serves as conditions for their respective predictors. And losses are calculated only on masked part.
+            The overall architecture of R-VC.
           </h2>
         </div>
       </div>
@@ -131,9 +132,9 @@
       <div class="columns is-centered has-text-centered">
         <div class="column">
           <div class="content">
-            <div class="has-text-left">
+            <div class="has-text-centered  is-full-width">
               <p>
-                <h4>Dataset demo:</h4>
+                <h2 class="title is-3">all_steps</h2>
                 <table class="table" style="background-color: transparent;">
                     <thead>
                         <tr>
@@ -195,6 +196,145 @@
   </div>
 </section>
 
+<section class="hero is-light is-small"> 
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <div class="content">
+              <div class="has-text-centered  is-full-width">
+                <p>
+                  <h2 class="title is-3">emo_allsteps</h2>
+                  <table class="table" style="background-color: transparent;">
+                      <thead>
+                          <tr>
+                              <th align="center"><strong>source</strong></th>
+                              <th align="center"><strong>target</strong></th>
+                              <th align="center"><strong>gen</strong></th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/0/gt_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/0/prompt_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/0/gen_0.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      </tr>
+                      <tr>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/32/gt_32.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/32/prompt_32.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/32/gen_32.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      </tr>
+                      <tr>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/103/gt_103.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                         <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/103/prompt_103.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/103/gen_103.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      </tr>
+                      <tr>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/133/gt_133.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/133/prompt_133.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/133/gen_133.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      </tr>
+                      <tr>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/142/gt_142.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/142/prompt_142.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/142/gen_142.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      </tr>
+                      <tr>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/60/gt_60.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/60/prompt_60.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/60/gen_60.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      </tr>
+                      <tr>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/101/gt_101.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/101/prompt_101.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/101/gen_101.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      </tr>
+                      <tr>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/21/gt_21.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/21/prompt_21.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_emo_allsteps/21/gen_21.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      </tr>
+                      </tbody>
+                  </table>
+                  <br>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-light is-small"> 
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <div class="content">
+              <div class="has-text-centered  is-full-width">
+                <p>
+                  <h2 class="title is-3">fullemo_allsteps</h2>
+                  <table class="table" style="background-color: transparent;">
+                      <thead>
+                          <tr>
+                              <th align="center"><strong>source</strong></th>
+                              <th align="center"><strong>target</strong></th>
+                              <th align="center"><strong>gen</strong></th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/91/gt_91.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/91/prompt_91.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/91/gen_91.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      </tr>
+                      <tr>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/102/gt_102.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/102/prompt_102.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                          <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/102/gen_102.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      </tr>
+                      <tr>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/56/gt_56.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/56/prompt_56.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/56/gen_56.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/172/gt_172.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/172/prompt_172.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/172/gen_172.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/38/gt_38.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/38/prompt_38.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/38/gen_38.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/111/gt_111.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/111/prompt_111.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/111/gen_111.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/5/gt_5.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/5/prompt_5.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/5/gen_5.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/117/gt_117.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/117/prompt_117.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="./static/audio_sample/521k_fullemo_allsteps/117/gen_117.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                      </tbody>
+                  </table>
+                  <br>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 <!-- <section class="hero is-light is-small"> -->
 <!-- <section class="section">
   <div class="hero-body">
