@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="SceneAdapter: Dive Your Voice Into Multiple Real Life Scene With A New Multi Scene Dataset">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SceneAdapter</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-L7749G0HJZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-L7749G0HJZ');
+</script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body" style="padding-bottom: 24px;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Rhythm Controllable Zero-Shot Voice Conversion via Diffusion Transformer and Mask Generative Duration Mode</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Qian Yang<sup>1,*</sup>,</span>
+            <span class="author-block">Jialong Zuo<sup>1,*</sup>,</span>
+            <span class="author-block">Zhe Su<sup>3,*</sup>,</span>
+            <span class="author-block">Ziyue Jiang<sup>1</sup>,</span>
+            <span class="author-block">Mingze Li<sup>1</sup>,</span>
+            <span class="author-block">Zhou Zhao<sup>1</sup>,</span>
+            <br />
+            <span class="author-block">Feiyang Chen<sup>2</sup>,</span>
+            <span class="author-block">Zhefeng Wang<sup>2</sup>,</span>
+            <span class="author-block">Baoxing Huai<sup>2</sup>,</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Zhejiang University,</span>
+            <span class="author-block"><sup>2</sup>Huawei Cloud,</span>
+            <span class="author-block"><sup>3</sup>Carnegie Mellon University</span>
+          </div>
+          <div class="is-size-8 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal Contribution</span>
+          </div>
+
+
+          <!-- <div class="column has-text-centered">
+            <div class="publication-links">
+              PDF Link.
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section" style="padding-top: 0px;">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Zero-Shot Voice Conversion (VC) aims to transform the source speaker’s timbre into an arbitrary unseen one while retaining speech content. However, in addition to linguistic content and timbre, prosody is an indispensable aspect of speech. Most prior work focuses on preserving the source's prosody, while fine-grained timbre information may leak through prosody, and transferring target prosody to synthesized speech is rarely studied. In light of this, we propose R-VC, a rhythm-controllable zero-shot voice conversion model, leveraging a powerful Diffusion Transformer (DiT) with a target speech prompting strategy, and a Mask Generative Transformer model for in-context duration modeling. Specifically, we apply data perturbation techniques and discretize source speech into Hubert content tokens, which greatly eliminate content-irrelevant information. Additionally, we deduplicate the same discrete tokens and employ a Mask Generative Transformer to adapt the duration of the linguistic content to the desired target speaking style. Finally, to enhance speaker similarity and generate high-quality speech, we use a DiT-based conditional flow matching model to reconstruct acoustic features. Experimental results show that DD-VC achieves comparable speaker similarity to state-of-the-art VC methods with a smaller dataset, and surpasses them in terms of speech naturalness, pitch consistency and style transfer performance.
+          </p>
+        </div>
+
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop is-centered has-text-centered">
+    <div class="hero-body">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Model Overview</h2>
+          <img src="./static/images/1b57a10a4007f5191f5e575707ceba5.png"
+                    class="interpolation-image"
+                    alt="Interpolate start reference image."/>
+          <h2 class="has-text-centered is-8">
+            The overall architecture of SceneAdapter. Duration, pitch, and energy are extracted from the prompt (In training: unmasked part; In inference: reference speech). It serves as conditions for their respective predictors. And losses are calculated only on masked part.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small"> 
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <div class="content">
+            <div class="has-text-left">
+              <p>
+                <h4>Dataset demo:</h4>
+                <table class="table" style="background-color: transparent;">
+                    <thead>
+                        <tr>
+                            <th align="center"><strong>source</strong></th>
+                            <th align="center"><strong>target</strong></th>
+                            <th align="center"><strong>gen</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/27/gt_27.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/27/prompt_27.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/27/gen_27.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/21/gt_21.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/21/prompt_21.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/21/gen_21.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/58/gt_58.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/58/prompt_58.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/58/gen_58.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/83/gt_83.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/83/prompt_83.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/83/gen_83.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/185/gt_185.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/185/prompt_185.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/185/gen_185.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/87/gt_87.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/87/prompt_87.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/87/gen_87.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/74/gt_74.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/74/prompt_74.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/74/gen_74.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/81/gt_81.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/81/prompt_81.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                        <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 250px; height: 40px"><source src="/static/audio_sample/521k_all_steps/81/gen_81.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero is-light is-small"> -->
+<section class="section">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Prosody Transfer In Adaptive TTS</h2>
+          <div class="columns is-centered has-text-centered  is-full-width">
+            <table class="table" style="background-color: transparent;">
+              <thead>
+                <tr>
+                  <th align="center"><strong>Ref-Spk</strong></th>                  
+                  <th align="center"><strong>Ref-Prosody</strong></th>
+                  <th align="center"><strong>Text</strong></th>
+                  <th align="center"><strong>SceneAdapter</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                 <tr>
+                  <td rowspan="10" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/直播带货/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Ref-Spk)</td>
+                  <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/儿童故事/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Story Telling)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">突然，蝴蝶停在了一朵花上，波波小心翼翼地靠近，屏住呼吸，他伸出手，轻轻地抓住了蝴蝶。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/儿童故事/2_5.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">朋友们鼓励波波，只要你相信自己，不放弃，你一定能抓得到蝴蝶。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/儿童故事/2_4.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/直播带货/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Live Commerse)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">大家好,欢迎来到今天的直播间,我是你们的主播珊珊,很高兴能够在这里与大家见面。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/直播带货/6_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">如果你也喜欢这个小零食,记得关注我们的直播间,我们每周都会有很多美味又健康的零食分享给大家。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/直播带货/6_5.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                <tr>
+                  <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/新闻播报/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(News Broadcasting)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">知识产权含金量明显提升，是近年来我国知识产权高质量发展的特征之一。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/新闻播报/5_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">作为全球首个发明专利有效量超三百万件的国家，我国发明专利有效量已位居全球第一。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_new/hh_1_05/新闻播报/5_2.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/客服问答/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Customer Service)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">您好，感谢您选择我们的产品，请问有什么我可以帮助您的吗？</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/客服问答/4_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">我遇到了一些技术问题，无法完成我需要的任务。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/客服问答/4_2.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/教育授课/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Education Teaching)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">在语文学习中，阅读理解是必不可少的一部分，它是对文本深度理解与感悟的关键。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/教育授课/3_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">阅读理解不仅需要理解和分析文本的能力，还要求具备批判性思维和解决问题的能力</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/hh_1_05/教育授课/3_2.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                
+                 <td rowspan="10" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/直播带货/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Ref-Spk)</td>
+                  <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/儿童故事/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Story Telling)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">突然，蝴蝶停在了一朵花上，波波小心翼翼地靠近，屏住呼吸，他伸出手，轻轻地抓住了蝴蝶。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/儿童故事/2_5.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">朋友们鼓励波波，只要你相信自己，不放弃，你一定能抓得到蝴蝶。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/儿童故事/2_4.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                <tr>
+                  <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/直播带货/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Live Commerse)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">大家好,欢迎来到今天的直播间,我是你们的主播珊珊,很高兴能够在这里与大家见面。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/直播带货/6_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 400px">如果你也喜欢这个小零食,记得关注我们的直播间,我们每周都会有很多美味又健康的零食分享给大家。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/直播带货/6_5.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                <tr>
+                  <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/新闻播报/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(News Broadcasting)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">知识产权含金量明显提升，是近年来我国知识产权高质量发展的特征之一。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/新闻播报/5_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">作为全球首个发明专利有效量超三百万件的国家，我国发明专利有效量已位居全球第一。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/新闻播报/5_2.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/客服问答/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Customer Service)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">您好，感谢您选择我们的产品，请问有什么我可以帮助您的吗？</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/客服问答/4_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">我遇到了一些技术问题，无法完成我需要的任务。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/客服问答/4_2.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/教育授课/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Education Teaching)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">在语文学习中，阅读理解是必不可少的一部分，它是对文本深度理解与感悟的关键。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/教育授课/3_1.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">阅读理解不仅需要理解和分析文本的能力，还要求具备批判性思维和解决问题的能力</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/infer_fix_decoder/qbj_007/教育授课/3_2.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+</section>
+
+
+<section class="section">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Zero-Shot Style Transfer</h2>
+          <p> Note:We test the zero shot ability of style transfer to totally unseen dataset ESD as ref-prosody. </p>  <br />
+          <div class="columns is-centered has-text-centered  is-full-width">
+            <table class="table" style="background-color: transparent;">
+              <thead>
+                <tr>
+                  <th align="center"><strong>Ref-Spk</strong></th>                  
+                  <th align="center"><strong>Ref-Prosody</strong></th>
+                  <th align="center"><strong>Text</strong></th>
+                  <th align="center"><strong>SceneAdapter</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="4" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/zero_shot_esd/hh_1_05/zhesd_0002/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Ref-Spk:Mandrain)</td>
+                  <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/zero_shot_esd/hh_1_05/zhesd_0002/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(ESD Dataset Unseen)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">当然是了，我现在快饿死了。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/zero_shot_esd/hh_1_05/zhesd_0002/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">得了吧，别这么胆小啦。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/zero_shot_esd/hh_1_05/zhesd_0002/7.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/zero_shot_esd/hh_1_05/zhesd_0007/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(ESD Dataset Unseen)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">当然是了，我现在快饿死了。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/zero_shot_esd/hh_1_05/zhesd_0007/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">得了吧，别这么胆小啦。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/zero_shot_esd/hh_1_05/zhesd_0007/7.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+
+                <tr>
+                  <td rowspan="4" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/zero_shot_esd/qbj_007/zhesd_0005/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Ref-Spk:Mandrain)</td>
+                  <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/zero_shot_esd/qbj_007/zhesd_0005/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(ESD Dataset Unseen)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">听说你要去香港看你叔叔。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/zero_shot_esd/qbj_007/zhesd_0005/4.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">这可真不像是场英超比赛。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/zero_shot_esd/qbj_007/zhesd_0005/6.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/zero_shot_esd/qbj_007/zhesd_0010/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(ESD Dataset Unseen)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">听说你要去香港看你叔叔。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/zero_shot_esd/qbj_007/zhesd_0010/4.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">这可真不像是场英超比赛。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/zero_shot_esd/qbj_007/zhesd_0010/6.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+               
+               
+               
+                  
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<section class="section">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Prosody Transfer In Adaptive TTS In English and English Chinese Mixture</h2>
+          <p> Note:Basically,we are testing model's cross-lingual ability. As we only train English Data of VCTK in pretaining stage, 
+            finetuning style in Mandrain and fintuing speaker in Mandrain. So the english pronunciation performs no good and
+            style transfer performs no good.</p> <br />
+          <div class="columns is-centered has-text-centered  is-full-width">
+            <table class="table" style="background-color: transparent;">
+              <thead>
+                <tr>
+                  <th align="center"><strong>Ref-Spk</strong></th>                  
+                  <th align="center"><strong>Ref-Prosody</strong></th>
+                  <th align="center"><strong>Text</strong></th>
+                  <th align="center"><strong>SceneAdapter</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="8" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/hh_1_05/成人故事/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Ref-Spk:Mandrain)</td>
+                  <td rowspan="4" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/hh_1_05/成人故事/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Story Telling:Mandrain)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">Who is been repeating all that hard stuff to you?</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/hh_1_05/成人故事/11.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">I thank you for this mercy!</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/hh_1_05/成人故事/13.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">Your path now goes south.</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/hh_1_05/成人故事/15.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">AI for Data, Data for AI等技术的落地,将使我们在海量数据中探索更深层次的价值。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/hh_1_05/成人故事/16.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td rowspan="4" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/hh_1_05/客服问答/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Customer Service:Mandrain)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">Who is been repeating all that hard stuff to you?</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/hh_1_05/客服问答/11.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">I thank you for this mercy!</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/hh_1_05/客服问答/13.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">Your path now goes south.</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/hh_1_05/客服问答/15.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">AI for Data, Data for AI等技术的落地,将使我们在海量数据中探索更深层次的价值。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/hh_1_05/客服问答/16.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+
+                 <tr>
+                  <td rowspan="8" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/qbj_007/成人故事/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Ref-Spk:Mandrain)</td>
+                  <td rowspan="4" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/qbj_007/成人故事/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Story Telling:Mandrain)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">Who is been repeating all that hard stuff to you?</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/qbj_007/成人故事/11.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">I thank you for this mercy!</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/qbj_007/成人故事/13.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">Your path now goes south.</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/qbj_007/成人故事/15.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">AI for Data, Data for AI等技术的落地,将使我们在海量数据中探索更深层次的价值。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/qbj_007/成人故事/16.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                <tr>
+                  <td rowspan="4" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/qbj_007/客服问答/ref-prosody.wav" autoplay/>Your browser does not support the audio element.</audio><br />(Customer Service:Mandrain)</td>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">Who is been repeating all that hard stuff to you?</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/qbj_007/客服问答/11.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">I thank you for this mercy!</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/qbj_007/客服问答/13.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">Your path now goes south.</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/qbj_007/客服问答/15.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+                 <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 1600px">AI for Data, Data for AI等技术的落地,将使我们在海量数据中探索更深层次的价值。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/english_demo/qbj_007/客服问答/16.wav" autoplay/>Your browser does not support the audio element.</audio></td>           
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+      
+<section class="section">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered has-text-centered">
+            <div class="column">
+              <h2 class="title is-3">Model Comparison</h2>
+              <div class="columns is-centered has-text-centered  is-full-width">
+                <table class="table" style="background-color: transparent;">
+                  <thead>
+                    <tr>
+                      <th align="center"><strong>Ref-Spk</strong></th>
+                      <th align="center"><strong>A³T</strong></th>
+                      <th align="center"><strong>Adaspeech 4</strong></th>
+                      <th align="center"><strong>SceneAdapter</strong></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/奇迹/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/奇迹/a3t/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 1600px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/奇迹/ada4/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/奇迹/sceneadapter/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/奇迹/a3t/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 1600px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/奇迹/ada4/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/奇迹/sceneadapter/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                      <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/李欣洋/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/李欣洋/a3t/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 1600px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/李欣洋/ada4/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/李欣洋/sceneadapter/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/李欣洋/a3t/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 1600px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/李欣洋/ada4/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/李欣洋/sceneadapter/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                      <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/李雨伦/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/李雨伦/a3t/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 1600px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/李雨伦/ada4/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/李雨伦/sceneadapter/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/李雨伦/a3t/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 1600px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/李雨伦/ada4/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/李雨伦/sceneadapter/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                      <td rowspan="3" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/桡木/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/桡木/a3t/1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 1600px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/桡木/ada4/1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/桡木/sceneadapter/1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/桡木/a3t/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 1600px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/桡木/ada4/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/桡木/sceneadapter/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/桡木/a3t/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 1600px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/桡木/ada4/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/桡木/sceneadapter/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                      <td rowspan="3" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/雅乔/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/雅乔/a3t/1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 1600px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/雅乔/ada4/1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/雅乔/sceneadapter/1.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/雅乔/a3t/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 1600px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/雅乔/ada4/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/雅乔/sceneadapter/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/雅乔/a3t/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 1600px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/雅乔/ada4/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/雅乔/sceneadapter/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                      <td rowspan="2" style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/Julia/ref-spk.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/Julia/a3t/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 1600px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/Julia/ada4/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/Julia/sceneadapter/2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;vertical-align:middle;width: 400px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/Julia/a3t/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 1600px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/Julia/ada4/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                      <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/音色实验/Julia/sceneadapter/3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section> -->
+
+   
+
+<!--    
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Shuffle Speaker Basis Vectors</h2>
+          <div class="columns is-centered has-text-centered  is-full-width">
+            <table class="table" style="background-color: transparent;">
+              <thead>
+                <tr>
+                  <th align="center"><strong>Example</strong></th>
+                  <th align="center"><strong>Text</strong></th>
+                  <th align="center"><strong>Audio</strong></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">example_out_1</td>
+                  <td rowspan="6" style="text-align: center;vertical-align:middle;width: 800px">新版外资准入负面清单进⼀步放开了汽车制造等领域的外资股比限制，有力带动了引资规模增长。</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/shuffle speaker basis vectors in sec3.1/example_out.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">example_out_2</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/shuffle speaker basis vectors in sec3.1/example_out2.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">example_out_3</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/shuffle speaker basis vectors in sec3.1/example_out3.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">example_out_4</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/shuffle speaker basis vectors in sec3.1/example_out4.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">example_out_5</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/shuffle speaker basis vectors in sec3.1/example_out5.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;vertical-align:middle;width: 800px">example_out_6</td>
+                  <td style="text-align: center;vertical-align:middle;width: 800px"><audio controls="controls" style="width: 140px;"><source src="./static/audio_sample/shuffle speaker basis vectors in sec3.1/example_out6.wav" autoplay/>Your browser does not support the audio element.</audio></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+-->
+
+
+        <!-- <footer class="footer">
+          <div class="container">
+            <div class="columns is-centered has-text-centered">
+              <div class="column is-four-fifths">
+                <h2 class="title is-3">Licenses</h2>
+                <div class="content">
+                  <p>
+                    This website is licensed under a <a rel="license"
+                                                        href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                    Commons Attribution-ShareAlike 4.0 International License</a>.
+                  </p>
+                  <p>
+                    Website source code based on the <a
+                    href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer> -->
+
+</body>
+</html>
