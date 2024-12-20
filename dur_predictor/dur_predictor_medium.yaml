@@ -1,0 +1,106 @@
+defaults:
+  - dur_base
+  - _self_
+
+project: dur_predictor_medium
+resume_weights_only: false
+
+# Lightning Trainer
+trainer:
+  accelerator: gpu
+  devices: auto
+  strategy: ddp_find_unused_parameters_true
+  precision: 32
+  max_steps: 40_000_000
+  val_check_interval: 100
+  benchmark: false
+
+sample_rate: 22050
+hop_length: 256
+num_mels: 80
+n_fft: 1024
+win_length: 1024
+
+hidden_size: 512
+
+semantic_vocab: 4096
+spk_embed_dim: 192
+
+# Dataset Configuration
+train_dataset:
+  _target_: fish_speech.datasets.dur_pred_zh.FlowDecoderDataset
+  data_json: data/zh/train_data.json
+  sample_rate: ${sample_rate}
+  hop_length: ${hop_length}
+
+val_dataset:
+  _target_: fish_speech.datasets.dur_pred_zh.FlowDecoderDataset
+  data_json: data/zh/valid_data.json
+  sample_rate: ${sample_rate}
+  hop_length: ${hop_length}
+
+data:
+  _target_: fish_speech.datasets.dur_pred_zh.FlowDecoderDataModule
+  train_dataset: ${train_dataset}
+  val_dataset: ${val_dataset}
+  num_workers: 8
+  batch_size: 16
+  val_batch_size: 8
+  semantic_vocab: ${semantic_vocab}
+  max_tokens: 2400
+
+# Model Configurationq
+model:
+  _target_: fish_speech.models.dur_predictor.DurPredictorTask
+
+  generator:
+    _target_: fish_speech.models.dur_predictor.model.SentenceDurPredictor
+    hp:
+      #text
+      phone_embed_dim: 512
+      n_phone: ${semantic_vocab}
+      #SPK
+      spk_e_dim: 1024
+      spk_embed_dim: 512
+      in_channels: 80
+      out_channels: 1
+
+      encoder_dim: 512
+      encoder_n_layers: 16
+      encoder_n_heads: 8
+      encoder_n_kv_heads: null
+      mlp_extend: null
+      max_seq_len: 8192
+      multiple_of: 256  # make SwiGLU hidden layer size multiple of large power of 2
+      norm_eps: 1e-5
+      dropout: 0.0
+      ffn_dim_multiplier: null
+      use_causal_attn: false
+      causal: false
+      use_qk_norm: ""  # head, channel
+      use_window_mask: false
+      window_size: [-1, -1]
+      window_type: elemwise  # elemwise, blockwise
+      llama_provider: ctiga
+
+  
+  optimizer:
+    _target_: torch.optim.AdamW
+    _partial_: true
+    lr: 1e-4
+    betas: [0.8, 0.99]
+    eps: 1e-6
+
+  lr_scheduler:
+    _target_: torch.optim.lr_scheduler.ExponentialLR
+    _partial_: true
+    gamma: 0.999999
+
+callbacks:
+  grad_norm_monitor:
+    sub_module: 
+      - generator
+
+  model_checkpoint:
+    every_n_train_steps: 100
+    save_top_k: 10
